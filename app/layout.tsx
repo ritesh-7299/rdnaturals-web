@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     siteName: "RD Naturals",
   },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/main_logo_square.png",
+    apple: "/main_logo_square.png",
   },
 };
 

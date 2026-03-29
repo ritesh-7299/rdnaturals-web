@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import OrderModal from "./components/OrderModal";
 import { WhatsAppIcon, ShieldIcon, TruckIcon, SparkleIcon, ClockIcon, LeafSprig } from "./components/icons";
 import { motion } from "framer-motion";
 
 export default function Home() {
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+
   // Animation for elements that should animate on load (Hero)
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
@@ -32,7 +36,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header onOrderClick={() => setIsOrderModalOpen(true)} />
       <main className="flex-1">
         {/* Hero Section */}
         <section id="hero" className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-cream">
@@ -86,15 +90,17 @@ export default function Home() {
                   variants={fadeIn}
                   className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-16"
                 >
-                  <motion.a 
+                  <motion.button 
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    href="#contact"
+                    onClick={() => setIsOrderModalOpen(true)}
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-forest text-warm-white rounded-full font-bold hover:bg-forest-light transition-all shadow-lg shadow-forest/20 w-full sm:w-auto"
                   >
-                    <WhatsAppIcon className="w-5 h-5" />
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
                     Order for Delivery
-                  </motion.a>
+                  </motion.button>
                   
                   <motion.a 
                     whileHover={{ scale: 1.03 }}
@@ -142,7 +148,7 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="relative w-full max-w-md lg:max-w-lg aspect-square order-1 lg:order-2"
+                className="relative w-full max-w-lg lg:max-w-xl aspect-square order-1 lg:order-2"
               >
                 <motion.div 
                   animate={{ 
@@ -156,17 +162,30 @@ export default function Home() {
                   }}
                   className="absolute inset-0 bg-forest/5 rounded-full blur-3xl"
                 ></motion.div>
-                <div className="relative z-10 w-full h-full p-8 flex items-center justify-center">
+                
+                {/* Floating Main Mushroom Visual */}
+                <motion.div 
+                  animate={{ 
+                    y: [0, -20, 0],
+                    rotate: [0, 2, 0]
+                  }}
+                  transition={{ 
+                    duration: 6, 
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="relative z-10 w-full h-full flex items-center justify-center"
+                >
                    <div className="relative w-full h-full">
                     <Image
-                      src="/main_logo.png"
-                      alt="RD Naturals Main Logo"
+                      src="/prod_mashroom_logo_transparent.png"
+                      alt="RD Naturals Premium Mushroom"
                       fill
-                      className="object-contain mix-blend-multiply"
+                      className="object-contain"
                       priority
                     />
                    </div>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </div>
@@ -260,19 +279,19 @@ export default function Home() {
               {[
                 { 
                   title: "White Button Mushrooms", 
-                  image: "/mushroom-button.png",
+                  image: "/mushroom-button.jpg",
                   desc: "Firm, crisp, and mild. Our buttons are perfect for sautéing, salads, or classic mushroom soup. Rich in Vitamin B and Selenium.",
                   tag: "Customer Favorite"
                 },
                 { 
                   title: "Oyster Mushrooms", 
-                  image: "/mushroom-oyster.png",
+                  image: "/mushroom-oyster.jpg",
                   desc: "Exotic shape with a subtle, anise-like aroma. These are low in calories and high in protein, making them a vegan's delight.",
                   tag: "Gourmet Choice"
                 },
                 { 
                   title: "Milky Mushrooms", 
-                  image: "/mushroom-milky.png",
+                  image: "/mushroom-milky.jpg",
                   desc: "A tropical gem with a meaty bite. Excellent for heavy gravies and curries. Holds its shape well even after long cooking.",
                   tag: "Long Shelf Life"
                 }
@@ -304,10 +323,13 @@ export default function Home() {
                     <p className="text-forest/70 text-sm leading-relaxed mb-8">
                       {product.desc}
                     </p>
-                    <a href="#contact" className="inline-flex items-center gap-2 text-forest font-bold text-sm group/link">
+                    <button 
+                      onClick={() => setIsOrderModalOpen(true)}
+                      className="inline-flex items-center gap-2 text-forest font-bold text-sm group/link"
+                    >
                       Order Now
                       <span className="w-6 h-px bg-forest/30 group-hover/link:w-10 group-hover/link:bg-forest transition-all"></span>
-                    </a>
+                    </button>
                   </div>
                 </motion.div>
               ))}
@@ -337,7 +359,7 @@ export default function Home() {
                   </div>
                   <div className="flex gap-4">
                     <div className="w-10 h-10 rounded-full bg-sage/20 flex-shrink-0 flex items-center justify-center text-sage">
-                      <ShieldIcon className="w-5 h-5" />
+                      <ShieldIcon className="w-6 h-6" />
                     </div>
                     <div>
                       <h4 className="font-bold text-warm-white text-lg">Brain Health</h4>
@@ -357,26 +379,81 @@ export default function Home() {
               </motion.div>
               
               <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                className="relative rounded-3xl overflow-hidden aspect-[16/10] bg-warm-white/10 p-4 border border-warm-white/10"
+                className="relative rounded-[3rem] overflow-hidden aspect-square lg:aspect-[16/10] bg-[#1A2F23]/40 backdrop-blur-sm border border-harvest-gold/10 group"
               >
-                <div className="relative w-full h-full flex items-center justify-center">
-                   <div className="relative w-full h-full">
+                {/* Background Depth */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--color-sage)_0%,_transparent_100%)] opacity-5 group-hover:opacity-10 transition-opacity duration-1000"></div>
+                
+                {/* Floating Organic Elements */}
+                <motion.div 
+                  animate={{ 
+                    y: [0, -20, 0],
+                    x: [0, 10, 0],
+                    rotate: [0, 5, 0]
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-10 right-[10%] w-32 h-32 opacity-[0.05] grayscale brightness-200"
+                >
+                  <Image src="/prod_mashroom_logo_transparent.png" alt="" fill className="object-contain" />
+                </motion.div>
+
+                <motion.div 
+                  animate={{ 
+                    y: [0, 25, 0],
+                    x: [0, -15, 0],
+                    rotate: [0, -8, 0]
+                  }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute bottom-10 left-[15%] w-48 h-48 opacity-[0.03] grayscale brightness-200"
+                >
+                  <Image src="/prod_mashroom_logo_transparent.png" alt="" fill className="object-contain" />
+                </motion.div>
+
+                {/* Etched Watermark Logo with Subtle Drift */}
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+                  <motion.div
+                    animate={{ 
+                      scale: [1, 1.05, 1],
+                      rotate: [0, 2, 0]
+                    }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative w-full h-full"
+                  >
                     <Image
-                      src="/main_logo.png"
-                      alt="Healthy Mushrooms"
+                      src="/prod_mashroom_logo_transparent.png"
+                      alt=""
                       fill
-                      className="object-contain opacity-40"
+                      className="object-cover opacity-[0.07] grayscale contrast-125 brightness-150 mix-blend-overlay"
                     />
-                    <div className="absolute inset-0 flex items-center justify-center p-8">
-                      <div className="text-center">
-                        <p className="text-3xl font-display text-warm-white italic drop-shadow-lg mb-4">"Direct from Farm,"</p>
-                        <p className="text-xl text-sage font-bold tracking-widest uppercase italic">"Delivered Fresh Every Day."</p>
-                      </div>
-                    </div>
-                   </div>
+                  </motion.div>
                 </div>
+
+                {/* Content Overlay */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-12 z-10">
+                  <motion.div 
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-center"
+                  >
+                    <div className="inline-block px-4 py-1 border border-harvest-gold/20 rounded-full mb-6">
+                      <span className="text-[10px] font-mono text-harvest-gold uppercase tracking-[0.3em] font-bold">Provenance</span>
+                    </div>
+                    <p className="text-4xl lg:text-5xl font-display text-warm-white italic leading-tight mb-6 drop-shadow-2xl">
+                      "Direct from Farm,"
+                    </p>
+                    <div className="h-px w-16 bg-harvest-gold/30 mx-auto mb-6"></div>
+                    <p className="text-xs font-mono text-sage font-bold tracking-[0.4em] uppercase">
+                      Delivered Fresh Every Day
+                    </p>
+                  </motion.div>
+                </div>
+
+                {/* Corner Accents */}
+                <div className="absolute top-6 left-6 w-8 h-8 border-t border-l border-harvest-gold/20 rounded-tl-xl"></div>
+                <div className="absolute bottom-6 right-6 w-8 h-8 border-b border-r border-harvest-gold/20 rounded-br-xl"></div>
               </motion.div>
             </div>
           </div>
@@ -392,23 +469,24 @@ export default function Home() {
                 <p className="text-warm-white/70 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
                   Join hundreds of families and restaurants across Gujarat who trust RD Naturals for their daily dose of nutrition.
                 </p>
-                <motion.a 
+                <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  href="https://wa.me/91XXXXXXXXXX"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={() => setIsOrderModalOpen(true)}
                   className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-terracotta text-warm-white rounded-full font-bold text-xl hover:bg-terracotta-light transition-all shadow-xl"
                 >
-                  <WhatsAppIcon className="w-6 h-6" />
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
                   Place Your Order Now
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer onOrderClick={() => setIsOrderModalOpen(true)} />
+      <OrderModal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
     </>
   );
 }

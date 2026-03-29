@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { MenuIcon, CloseIcon } from "./icons";
 
-export default function Header() {
+interface HeaderProps {
+  onOrderClick?: () => void;
+}
+
+export default function Header({ onOrderClick }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -24,6 +28,15 @@ export default function Header() {
     }
   };
 
+  const handleContactClick = () => {
+    if (onOrderClick) {
+      onOrderClick();
+      setMobileMenuOpen(false);
+    } else {
+      scrollToSection("contact");
+    }
+  };
+
   return (
     <>
       <header
@@ -37,22 +50,22 @@ export default function Header() {
           {/* Logo */}
           <button
             onClick={() => scrollToSection("hero")}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-2 group"
           >
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12">
               <Image
-                src="/logo.png"
+                src="/main_logo_header_large.png"
                 alt="RD Naturals Logo"
                 fill
-                className="object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-multiply"
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
                 priority
               />
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="font-display text-lg font-medium text-forest leading-tight">
+              <span className="font-display text-base font-semibold text-forest leading-tight">
                 RD Naturals
               </span>
-              <span className="text-xs text-forest/60 tracking-wide">
+              <span className="text-[8px] text-forest/70 tracking-wide font-medium">
                 Fresh Mushrooms
               </span>
             </div>
@@ -82,7 +95,7 @@ export default function Header() {
               <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-terracotta/0 group-hover:bg-terracotta/60 transition-colors"></span>
             </button>
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={handleContactClick}
               className="px-5 py-2.5 text-sm font-medium text-warm-white bg-forest hover:bg-forest-light rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-forest/20"
             >
               Contact
@@ -118,7 +131,7 @@ export default function Header() {
                 <div className="flex items-center gap-3">
                   <div className="relative w-10 h-10">
                     <Image
-                      src="/logo.png"
+                      src="/main_logo_header_large.png"
                       alt="RD Naturals Logo"
                       fill
                       className="object-contain"
@@ -155,7 +168,7 @@ export default function Header() {
                   Why Us
                 </button>
                 <button
-                  onClick={() => scrollToSection("contact")}
+                  onClick={handleContactClick}
                   className="w-full mt-4 px-4 py-3 text-lg font-medium text-warm-white bg-forest hover:bg-forest-light rounded-xl transition-all"
                 >
                   Contact

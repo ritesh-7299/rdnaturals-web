@@ -1,7 +1,11 @@
 import { WhatsAppIcon, LeafSprig } from "./icons";
 import Image from "next/image";
 
-export default function Footer() {
+interface FooterProps {
+  onOrderClick?: () => void;
+}
+
+export default function Footer({ onOrderClick }: FooterProps) {
   const whatsappNumber = "91XXXXXXXXXX"; // Replace with actual number
 
   return (
@@ -21,7 +25,7 @@ export default function Footer() {
             <div className="flex items-center gap-4 mb-6">
               <div className="relative w-20 h-20">
                 <Image
-                  src="/logo.png"
+                  src="/main_logo_header_large.png"
                   alt="RD Naturals Logo"
                   fill
                   className="object-contain"
@@ -87,15 +91,15 @@ export default function Footer() {
             <h4 className="font-display text-sm uppercase tracking-widest text-sage mb-6">
               Get In Touch
             </h4>
-            <a
-              href={`https://wa.me/${whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 bg-terracotta/20 hover:bg-terracotta/30 border border-terracotta/40 rounded-full text-terracotta-light transition-all duration-300 group"
+            <button
+              onClick={onOrderClick}
+              className="inline-flex items-center gap-3 px-6 py-3 bg-terracotta/20 hover:bg-terracotta/30 border border-terracotta/40 rounded-full text-terracotta-light transition-all duration-300 group w-full sm:w-auto justify-center"
             >
-              <WhatsAppIcon className="h-5 w-5" />
-              <span className="font-medium">Order on WhatsApp</span>
-            </a>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <span className="font-medium">Place Your Order</span>
+            </button>
             <div className="mt-6 space-y-2 text-ivory/60 text-sm">
               <p>Gujarat, India</p>
               <p>Bulk & Retail Orders Welcome</p>
