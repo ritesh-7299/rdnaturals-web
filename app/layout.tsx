@@ -16,9 +16,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "RD Naturals – Fresh Mushrooms Supplier in Gujarat",
-  description: "Fresh farm mushrooms, hygienic and daily supply. Contact RD Naturals for bulk and retail orders. Pure • Fresh • Natural",
-  keywords: ["fresh mushrooms", "mushroom supplier Gujarat", "farm fresh mushrooms", "organic mushrooms", "mushroom delivery", "RD Naturals"],
+  title: "RD Naturals | Premium Fresh Mushrooms Delivered Across Gujarat",
+  description: "Experience farm-fresh, high-quality White Button, Oyster, and Milky mushrooms from RD Naturals. Climate-controlled farming, daily delivery across 12+ districts including Ahmedabad, Surat, and Vadodara.",
+  keywords: ["fresh mushrooms Gujarat", "buy mushrooms Ahmedabad", "mushroom farm Surat", "Oyster mushrooms Vadodara", "White Button mushrooms online Gujarat", "organic mushroom delivery Ahmedabad", "Milky mushrooms supplier Gujarat", "fresh mushroom wholesale Surat", "mushroom subscription Vadodara", "best mushroom farm in Gujarat"],
   authors: [{ name: "RD Naturals" }],
   metadataBase: new URL("https://rdnaturals.com"),
   openGraph: {

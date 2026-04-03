@@ -67,6 +67,24 @@ export default function Footer({ onOrderClick }: FooterProps) {
               </li>
               <li>
                 <a
+                  href="#pricing"
+                  className="text-ivory/70 hover:text-terracotta-light transition-colors inline-flex items-center gap-2 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-sage/50 group-hover:bg-terracotta transition-colors"></span>
+                  Pricing
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#testimonials"
+                  className="text-ivory/70 hover:text-terracotta-light transition-colors inline-flex items-center gap-2 group"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-sage/50 group-hover:bg-terracotta transition-colors"></span>
+                  Testimonials
+                </a>
+              </li>
+              <li>
+                <a
                   href="#why-us"
                   className="text-ivory/70 hover:text-terracotta-light transition-colors inline-flex items-center gap-2 group"
                 >

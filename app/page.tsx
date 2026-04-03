@@ -5,7 +5,7 @@ import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import OrderModal from "./components/OrderModal";
-import { WhatsAppIcon, ShieldIcon, TruckIcon, SparkleIcon, ClockIcon, LeafSprig } from "./components/icons";
+import { WhatsAppIcon, ShieldIcon, TruckIcon, SparkleIcon, ClockIcon, LeafSprig, MushroomIcon } from "./components/icons";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -337,6 +337,77 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Pricing Section */}
+        <section id="pricing" className="py-24 bg-cream">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <motion.div {...fadeInView} className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-sm font-bold tracking-widest text-forest/50 uppercase mb-4">Pricing Plans</h2>
+              <h3 className="text-4xl font-display text-forest mb-6">Freshness for Every Scale</h3>
+              <p className="text-forest/60 text-lg leading-relaxed">Whether you're a home cook or a professional chef, we have the perfect pack size for you.</p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+              {/* Retail Plan */}
+              <motion.div {...fadeInView} className="bg-warm-white p-10 rounded-[3rem] border border-forest/10 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-6 opacity-10">
+                  <MushroomIcon className="w-24 h-24" />
+                </div>
+                <h4 className="text-2xl font-display font-bold text-forest mb-6">Retail Packs</h4>
+                <ul className="space-y-4 mb-10">
+                  <li className="flex justify-between items-center pb-4 border-b border-forest/5">
+                    <span className="text-forest/80 font-medium">200g Fresh Pack</span>
+                    <span className="font-bold text-forest">₹ 49</span>
+                  </li>
+                  <li className="flex justify-between items-center pb-4 border-b border-forest/5">
+                    <span className="text-forest/80 font-medium">500g Value Pack</span>
+                    <span className="font-bold text-forest">₹ 99</span>
+                  </li>
+                  <li className="flex justify-between items-center pb-4 border-b border-forest/5">
+                    <span className="text-forest/80 font-medium">1kg Family Pack</span>
+                    <span className="font-bold text-forest text-lg">₹ 199</span>
+                  </li>
+                </ul>
+                <button 
+                  onClick={() => setIsOrderModalOpen(true)}
+                  className="w-full py-4 bg-forest text-warm-white rounded-2xl font-bold hover:bg-forest-light transition-all"
+                >
+                  Order Retail Pack
+                </button>
+              </motion.div>
+
+              {/* Bulk Plan */}
+              <motion.div {...fadeInView} transition={{ delay: 0.2 }} className="bg-forest p-10 rounded-[3rem] text-warm-white shadow-xl relative overflow-hidden">
+                <div className="absolute top-4 right-8">
+                  <span className="px-3 py-1 bg-terracotta text-warm-white text-[10px] font-bold uppercase tracking-wider rounded-full">
+                    Best for Business
+                  </span>
+                </div>
+                <h4 className="text-2xl font-display font-bold mb-6">Bulk & Subscription</h4>
+                <ul className="space-y-4 mb-10">
+                  <li className="flex justify-between items-center pb-4 border-b border-warm-white/10">
+                    <span className="text-warm-white/80 font-medium">2kg Kitchen Crate</span>
+                    <span className="font-bold">₹ XXX</span>
+                  </li>
+                  <li className="flex justify-between items-center pb-4 border-b border-warm-white/10">
+                    <span className="text-warm-white/80 font-medium">5kg Commercial Crate</span>
+                    <span className="font-bold">₹ XXXX</span>
+                  </li>
+                  <li className="flex justify-between items-center pb-4 border-b border-warm-white/10">
+                    <span className="text-warm-white/80 font-medium">Weekly Subscription</span>
+                    <span className="font-bold text-sage">Custom Quote</span>
+                  </li>
+                </ul>
+                <button 
+                  onClick={() => setIsOrderModalOpen(true)}
+                  className="w-full py-4 bg-terracotta text-warm-white rounded-2xl font-bold hover:bg-terracotta-light transition-all"
+                >
+                  Contact for Bulk Rates
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
         {/* Why Us / Health Section */}
         <section id="why-us" className="py-24 bg-forest relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 text-warm-white/5 translate-x-1/2 -translate-y-1/2">
@@ -458,30 +529,91 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
-        {/* Final CTA */}
-        <section id="contact" className="py-24 bg-warm-white">
-          <div className="mx-auto max-w-5xl px-6 lg:px-8 text-center">
-            <motion.div {...fadeInView} className="p-12 sm:p-20 bg-forest rounded-[3rem] text-warm-white relative overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--color-forest-light)_0%,_transparent_50%)]"></div>
-              <div className="relative z-10">
-                <h2 className="text-4xl sm:text-5xl font-display mb-8">Ready to Fresh Up Your Kitchen?</h2>
-                <p className="text-warm-white/70 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
-                  Join hundreds of families and restaurants across Gujarat who trust RD Naturals for their daily dose of nutrition.
-                </p>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsOrderModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-terracotta text-warm-white rounded-full font-bold text-xl hover:bg-terracotta-light transition-all shadow-xl"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                  </svg>
-                  Place Your Order Now
-                </motion.button>
-              </div>
+
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-24 bg-warm-white">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <motion.div {...fadeInView} className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-sm font-bold tracking-widest text-forest/50 uppercase mb-4">Customer Trust</h2>
+              <h3 className="text-4xl font-display text-forest mb-6">What Our Community Says</h3>
             </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  quote: "The quality of RD Naturals' Button mushrooms is unmatched. They stay fresh in my fridge for days, and the taste is so much better than what I get at the local market.",
+                  author: "Anjali P.",
+                  role: "Home Cook"
+                },
+                {
+                  quote: "We've been sourcing Oyster mushrooms from RD Naturals for 6 months now. Their daily delivery ensures we always serve the freshest ingredients. Highly recommended.",
+                  author: "Chef Vikram",
+                  role: "Restaurant Owner"
+                },
+                {
+                  quote: "Consistency is key in a professional kitchen. RD Naturals provides high-quality Milky mushrooms every time. Their climate-controlled farming really shows.",
+                  author: "Rajesh K.",
+                  role: "Executive Chef"
+                }
+              ].map((t, i) => (
+                <motion.div 
+                  key={i} 
+                  {...fadeInView} 
+                  transition={{ delay: i * 0.1 }}
+                  className="p-8 bg-cream rounded-3xl border border-forest/5 relative"
+                >
+                  <div className="text-forest/20 absolute top-4 left-4 text-6xl font-serif">"</div>
+                  <p className="text-forest/80 italic mb-6 relative z-10">{t.quote}</p>
+                  <div>
+                    <p className="font-bold text-forest">{t.author}</p>
+                    <p className="text-xs text-forest/50 font-medium uppercase tracking-wider">{t.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Contact Section */}
+        <section id="contact" className="py-24 bg-cream border-t border-forest/5">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+              <motion.div {...fadeInView}>
+                <h2 className="text-sm font-bold tracking-widest text-forest/50 uppercase mb-4">Get in Touch</h2>
+                <h3 className="text-4xl font-display text-forest mb-8">Start Your Fresh Order Today</h3>
+                <p className="text-forest/60 text-lg mb-10 leading-relaxed">
+                  Have questions about our varieties or want to set up a recurring delivery for your business? We're just a message away.
+                </p>
+                
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4 p-4 bg-warm-white rounded-2xl border border-forest/5 transition-all">
+                    <div className="w-12 h-12 bg-forest/5 rounded-xl flex items-center justify-center text-forest">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <div>
+                      <p className="text-xs text-forest/40 font-bold uppercase tracking-wider">Email</p>
+                      <p className="font-bold text-forest">rdnaturals.in@gmail.com</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+              
+              <motion.div {...fadeInView} transition={{ delay: 0.2 }} className="bg-forest p-8 sm:p-12 rounded-[3rem] text-warm-white shadow-2xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--color-forest-light)_0%,_transparent_50%)] opacity-20"></div>
+                <div className="relative z-10">
+                  <h4 className="text-2xl font-display mb-6">Ready to Order?</h4>
+                  <p className="text-warm-white/70 mb-8">Fill out our quick order form and our team will get back to you within 2 hours with delivery details.</p>
+                  <button 
+                    onClick={() => setIsOrderModalOpen(true)}
+                    className="w-full py-5 bg-terracotta text-warm-white rounded-2xl font-bold text-xl hover:bg-terracotta-light transition-all shadow-xl flex items-center justify-center gap-3"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                    Open Order Form
+                  </button>
+                  <p className="text-center mt-6 text-xs text-warm-white/40 font-mono tracking-widest uppercase">Direct from Farm to Table</p>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
       </main>

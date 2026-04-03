@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { WhatsAppIcon } from "./icons";
 
@@ -10,16 +10,62 @@ interface OrderModalProps {
 }
 
 export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const [formData, setFormData] = useState({
-    email: "",
+    name: "",
     phone: "",
-    description: "",
+    email: "",
+    location: "",
+    variety: "White Button",
+    quantity: "500g",
+    frequency: "One-time",
   });
+  
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (formData.name.trim().length < 2) {
+      newErrors.name = "Please enter your full name";
+    }
+    
+    // Indian phone number validation
+    const phoneRegex = /^[6-9]\d{9}$/;
+    const cleanPhone = formData.phone.replace(/\s+/g, "").replace("+91", "");
+    if (!phoneRegex.test(cleanPhone)) {
+      newErrors.phone = "Enter a valid 10-digit mobile number";
+    }
+    
+    if (formData.location.trim().length < 3) {
+      newErrors.location = "Please enter your city or area";
+    }
+    
+    if (formData.email && !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) return;
+    
     setStatus("loading");
     setErrorMessage("");
 
@@ -37,7 +83,16 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
       }
 
       setStatus("success");
-      setFormData({ email: "", phone: "", description: "" });
+      setFormData({ 
+        name: "", 
+        phone: "",
+        email: "", 
+        location: "", 
+        variety: "White Button", 
+        quantity: "500g", 
+        frequency: "One-time" 
+      });
+      setErrors({});
       setTimeout(() => {
         onClose();
         setStatus("idle");
@@ -46,6 +101,16 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
       console.error("Order error:", error);
       setStatus("error");
       setErrorMessage("Something went wrong. Please try again later.");
+    }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData({ ...formData, [field]: value });
+    // Clear error for this field when user starts typing
+    if (errors[field]) {
+      const newErrors = { ...errors };
+      delete newErrors[field];
+      setErrors(newErrors);
     }
   };
 
@@ -65,13 +130,13 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg bg-warm-white rounded-[2rem] shadow-2xl overflow-hidden border border-forest/10"
+            className="relative w-full max-w-lg bg-warm-white rounded-[2rem] shadow-2xl overflow-hidden border border-forest/10 max-h-[90vh] overflow-y-auto"
           >
             <div className="p-8 sm:p-10">
               <div className="flex justify-between items-center mb-8">
                 <div>
-                  <h2 className="text-3xl font-display text-forest">Place Your Order</h2>
-                  <p className="text-forest/60 text-sm mt-1">We'll get back to you shortly</p>
+                  <h2 className="text-3xl font-display text-forest">Quick Order Form</h2>
+                  <p className="text-forest/60 text-sm mt-1">Direct from RD Naturals Farm</p>
                 </div>
                 <button
                   onClick={onClose}
@@ -95,54 +160,134 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-display text-forest mb-2">Order Received!</h3>
-                  <p className="text-forest/60">Thank you for choosing RD Naturals.</p>
+                  <p className="text-forest/60">We'll contact you shortly for delivery.</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-bold text-forest mb-2 ml-1">Email Address</label>
-                    <input
-                      required
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="your@email.com"
-                      className="w-full px-6 py-4 rounded-2xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest"
-                    />
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Full Name</label>
+                      <input
+                        required
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
+                        placeholder="John Doe"
+                        className={`w-full px-5 py-3 rounded-xl bg-forest/5 border ${errors.name ? 'border-red-400' : 'border-forest/10'} focus:border-forest/30 focus:bg-white outline-none transition-all text-forest`}
+                      />
+                      {errors.name && <p className="text-[10px] text-red-500 mt-1 ml-1">{errors.name}</p>}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Phone Number</label>
+                      <input
+                        required
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange("phone", e.target.value)}
+                        placeholder="10-digit mobile number"
+                        className={`w-full px-5 py-3 rounded-xl bg-forest/5 border ${errors.phone ? 'border-red-400' : 'border-forest/10'} focus:border-forest/30 focus:bg-white outline-none transition-all text-forest`}
+                      />
+                      {errors.phone && <p className="text-[10px] text-red-500 mt-1 ml-1">{errors.phone}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Email (Optional)</label>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        placeholder="your@email.com"
+                        className={`w-full px-5 py-3 rounded-xl bg-forest/5 border ${errors.email ? 'border-red-400' : 'border-forest/10'} focus:border-forest/30 focus:bg-white outline-none transition-all text-forest`}
+                      />
+                      {errors.email && <p className="text-[10px] text-red-500 mt-1 ml-1">{errors.email}</p>}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Delivery Location</label>
+                      <input
+                        required
+                        type="text"
+                        value={formData.location}
+                        onChange={(e) => handleInputChange("location", e.target.value)}
+                        placeholder="City or Area"
+                        className={`w-full px-5 py-3 rounded-xl bg-forest/5 border ${errors.location ? 'border-red-400' : 'border-forest/10'} focus:border-forest/30 focus:bg-white outline-none transition-all text-forest`}
+                      />
+                      {errors.location && <p className="text-[10px] text-red-500 mt-1 ml-1">{errors.location}</p>}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Mushroom Variety</label>
+                      <select
+                        value={formData.variety}
+                        onChange={(e) => handleInputChange("variety", e.target.value)}
+                        className="w-full px-5 py-3 rounded-xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest appearance-none"
+                      >
+                        <option>White Button</option>
+                        <option>Oyster</option>
+                        <option>Milky</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Quantity</label>
+                      <select
+                        value={formData.quantity}
+                        onChange={(e) => handleInputChange("quantity", e.target.value)}
+                        className="w-full px-5 py-3 rounded-xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest appearance-none"
+                      >
+                        <option>200g Pack</option>
+                        <option>500g Pack</option>
+                        <option>1kg Pack</option>
+                        <option>2kg Crate</option>
+                        <option>5kg+ Crate</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-forest mb-2 ml-1">Phone Number</label>
-                    <input
-                      required
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+91 XXXXX XXXXX"
-                      className="w-full px-6 py-4 rounded-2xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest"
-                    />
+                    <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Order Frequency</label>
+                    <div className="flex gap-2">
+                      {["One-time", "Weekly", "Monthly"].map((freq) => (
+                        <button
+                          key={freq}
+                          type="button"
+                          onClick={() => handleInputChange("frequency", freq)}
+                          className={`flex-1 py-3 rounded-xl text-sm font-bold transition-all ${
+                            formData.frequency === freq
+                              ? "bg-forest text-warm-white"
+                              : "bg-forest/5 text-forest/60 hover:bg-forest/10"
+                          }`}
+                        >
+                          {freq}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-forest mb-2 ml-1">Order Details</label>
+                    <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Message or Quotation Request (Optional)</label>
                     <textarea
-                      required
-                      rows={4}
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="Varieties, quantity, and your location..."
-                      className="w-full px-6 py-4 rounded-2xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest resize-none"
+                      rows={3}
+                      value={formData.message}
+                      onChange={(e) => handleInputChange("message", e.target.value)}
+                      placeholder="Ask for a custom quote, bulk pricing, or special instructions..."
+                      className="w-full px-5 py-3 rounded-xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest resize-none text-sm"
                     />
                   </div>
 
                   {status === "error" && (
-                    <p className="text-red-500 text-sm font-medium text-center">{errorMessage}</p>
+                    <p className="text-red-500 text-xs font-medium text-center">{errorMessage}</p>
                   )}
 
                   <button
                     disabled={status === "loading"}
                     type="submit"
-                    className="w-full py-5 bg-forest text-warm-white rounded-2xl font-bold text-lg hover:bg-forest-light transition-all shadow-lg shadow-forest/20 disabled:opacity-50 flex items-center justify-center gap-3"
+                    className="w-full py-4 mt-4 bg-forest text-warm-white rounded-xl font-bold text-lg hover:bg-forest-light transition-all shadow-lg shadow-forest/20 disabled:opacity-50 flex items-center justify-center gap-3"
                   >
                     {status === "loading" ? (
                       <div className="w-6 h-6 border-2 border-warm-white/30 border-t-warm-white rounded-full animate-spin" />
@@ -155,21 +300,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                       </>
                     )}
                   </button>
-                  
-                  <div className="text-center">
-                    <p className="text-xs text-forest/40 font-medium uppercase tracking-widest">
-                      Or connect instantly via
-                    </p>
-                    <a 
-                      href="https://wa.me/91XXXXXXXXXX" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-forest/70 hover:text-forest transition-colors mt-3 text-sm font-bold"
-                    >
-                      <WhatsAppIcon className="w-4 h-4" />
-                      WhatsApp Chat
-                    </a>
-                  </div>
                 </form>
               )}
             </div>
