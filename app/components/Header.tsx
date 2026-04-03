@@ -109,7 +109,7 @@ export default function Header({ onOrderClick }: HeaderProps) {
               <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-terracotta/0 group-hover:bg-terracotta/60 transition-colors"></span>
             </button>
             <button
-              onClick={() => scrollToSection("contact")}
+              onClick={handleContactClick}
               className="px-5 py-2.5 text-sm font-medium text-warm-white bg-forest hover:bg-forest-light rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-forest/20"
             >
               Contact
@@ -194,7 +194,7 @@ export default function Header({ onOrderClick }: HeaderProps) {
                   Why Us
                 </button>
                 <button
-                  onClick={() => scrollToSection("contact")}
+                  onClick={handleContactClick}
                   className="w-full mt-4 px-4 py-3 text-lg font-medium text-warm-white bg-forest hover:bg-forest-light rounded-xl transition-all"
                 >
                   Contact

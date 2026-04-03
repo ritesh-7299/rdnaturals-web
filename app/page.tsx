@@ -5,7 +5,7 @@ import Image from "next/image";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import OrderModal from "./components/OrderModal";
-import { WhatsAppIcon, ShieldIcon, TruckIcon, SparkleIcon, ClockIcon, LeafSprig, MushroomIcon } from "./components/icons";
+import { ShieldIcon, TruckIcon, SparkleIcon, ClockIcon, LeafSprig, MushroomIcon } from "./components/icons";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -235,7 +235,7 @@ export default function Home() {
             <motion.div {...fadeInView} className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-sm font-bold tracking-widest text-forest/50 uppercase mb-4">Our Commitment</h2>
               <h3 className="text-4xl font-display text-forest mb-6">Grown with Science, Harvested with Care</h3>
-              <p className="text-forest/60 text-lg leading-relaxed">At RD Naturals, we don't just grow mushrooms; we cultivate wellness. Our process ensures that every mushroom that leaves our farm is at its peak nutritional value.</p>
+              <p className="text-forest/60 text-lg leading-relaxed">At RD Naturals, we don&apos;t just grow mushrooms; we cultivate wellness. Our process ensures that every mushroom that leaves our farm is at its peak nutritional value.</p>
             </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -286,7 +286,7 @@ export default function Home() {
                 { 
                   title: "Oyster Mushrooms", 
                   image: "/mushroom-oyster.jpg",
-                  desc: "Exotic shape with a subtle, anise-like aroma. These are low in calories and high in protein, making them a vegan's delight.",
+                  desc: "Exotic shape with a subtle, anise-like aroma. These are low in calories and high in protein, making them a vegan&apos;s delight.",
                   tag: "Gourmet Choice"
                 },
                 { 
@@ -343,7 +343,7 @@ export default function Home() {
             <motion.div {...fadeInView} className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="text-sm font-bold tracking-widest text-forest/50 uppercase mb-4">Pricing Plans</h2>
               <h3 className="text-4xl font-display text-forest mb-6">Freshness for Every Scale</h3>
-              <p className="text-forest/60 text-lg leading-relaxed">Whether you're a home cook or a professional chef, we have the perfect pack size for you.</p>
+              <p className="text-forest/60 text-lg leading-relaxed">Whether you&apos;re a home cook or a professional chef, we have the perfect pack size for you.</p>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
@@ -425,7 +425,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-bold text-warm-white text-lg">Immunity Shield</h4>
-                      <p className="text-warm-white/60 text-sm">Natural compounds in mushrooms help activate white blood cells, strengthening your body's defense system.</p>
+                      <p className="text-warm-white/60 text-sm">Natural compounds in mushrooms help activate white blood cells, strengthening your body&apos;s defense system.</p>
                     </div>
                   </div>
                   <div className="flex gap-4">
@@ -513,7 +513,7 @@ export default function Home() {
                       <span className="text-[10px] font-mono text-harvest-gold uppercase tracking-[0.3em] font-bold">Provenance</span>
                     </div>
                     <p className="text-4xl lg:text-5xl font-display text-warm-white italic leading-tight mb-6 drop-shadow-2xl">
-                      "Direct from Farm,"
+                      &quot;Direct from Farm,&quot;
                     </p>
                     <div className="h-px w-16 bg-harvest-gold/30 mx-auto mb-6"></div>
                     <p className="text-xs font-mono text-sage font-bold tracking-[0.4em] uppercase">
@@ -541,12 +541,12 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  quote: "The quality of RD Naturals' Button mushrooms is unmatched. They stay fresh in my fridge for days, and the taste is so much better than what I get at the local market.",
+                  quote: "The quality of RD Naturals&apos; Button mushrooms is unmatched. They stay fresh in my fridge for days, and the taste is so much better than what I get at the local market.",
                   author: "Anjali P.",
                   role: "Home Cook"
                 },
                 {
-                  quote: "We've been sourcing Oyster mushrooms from RD Naturals for 6 months now. Their daily delivery ensures we always serve the freshest ingredients. Highly recommended.",
+                  quote: "We&apos;ve been sourcing Oyster mushrooms from RD Naturals for 6 months now. Their daily delivery ensures we always serve the freshest ingredients. Highly recommended.",
                   author: "Chef Vikram",
                   role: "Restaurant Owner"
                 },
@@ -562,7 +562,7 @@ export default function Home() {
                   transition={{ delay: i * 0.1 }}
                   className="p-8 bg-cream rounded-3xl border border-forest/5 relative"
                 >
-                  <div className="text-forest/20 absolute top-4 left-4 text-6xl font-serif">"</div>
+                  <div className="text-forest/20 absolute top-4 left-4 text-6xl font-serif">&quot;</div>
                   <p className="text-forest/80 italic mb-6 relative z-10">{t.quote}</p>
                   <div>
                     <p className="font-bold text-forest">{t.author}</p>
@@ -582,7 +582,7 @@ export default function Home() {
                 <h2 className="text-sm font-bold tracking-widest text-forest/50 uppercase mb-4">Get in Touch</h2>
                 <h3 className="text-4xl font-display text-forest mb-8">Start Your Fresh Order Today</h3>
                 <p className="text-forest/60 text-lg mb-10 leading-relaxed">
-                  Have questions about our varieties or want to set up a recurring delivery for your business? We're just a message away.
+                  Have questions about our varieties or want to set up a recurring delivery for your business? We&apos;re just a message away.
                 </p>
                 
                 <div className="space-y-6">

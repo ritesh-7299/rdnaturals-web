@@ -1,4 +1,4 @@
-import { WhatsAppIcon, LeafSprig } from "./icons";
+import { LeafSprig } from "./icons";
 import Image from "next/image";
 
 interface FooterProps {
@@ -6,8 +6,6 @@ interface FooterProps {
 }
 
 export default function Footer({ onOrderClick }: FooterProps) {
-  const whatsappNumber = "91XXXXXXXXXX"; // Replace with actual number
-
   return (
     <footer className="bg-forest text-ivory relative overflow-hidden">
       {/* Decorative elements */}

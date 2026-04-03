@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { WhatsAppIcon } from "./icons";
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -29,6 +28,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
     variety: "White Button",
     quantity: "500g",
     frequency: "One-time",
+    message: "",
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -90,7 +90,8 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         location: "", 
         variety: "White Button", 
         quantity: "500g", 
-        frequency: "One-time" 
+        frequency: "One-time",
+        message: ""
       });
       setErrors({});
       setTimeout(() => {
@@ -160,7 +161,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-display text-forest mb-2">Order Received!</h3>
-                  <p className="text-forest/60">We'll contact you shortly for delivery.</p>
+                  <p className="text-forest/60">We&apos;ll contact you shortly for delivery.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
