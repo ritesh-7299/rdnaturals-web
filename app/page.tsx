@@ -210,11 +210,11 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <motion.div {...fadeInView}>
-                <p className="text-4xl font-display font-bold text-forest mb-2">500+</p>
+                <p className="text-4xl font-display font-bold text-forest mb-2">50+</p>
                 <p className="text-sm text-forest/60 font-medium uppercase tracking-wider">Happy Customers</p>
               </motion.div>
               <motion.div {...fadeInView} transition={{ delay: 0.1 }}>
-                <p className="text-4xl font-display font-bold text-forest mb-2">12+</p>
+                <p className="text-4xl font-display font-bold text-forest mb-2">2+</p>
                 <p className="text-sm text-forest/60 font-medium uppercase tracking-wider">Districts Served</p>
               </motion.div>
               <motion.div {...fadeInView} transition={{ delay: 0.2 }}>
