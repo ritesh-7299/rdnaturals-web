@@ -530,7 +530,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials Section */}
+        {/* Testimonials Section
         <section id="testimonials" className="py-24 bg-warm-white">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <motion.div {...fadeInView} className="text-center max-w-3xl mx-auto mb-16">
@@ -556,9 +556,9 @@ export default function Home() {
                   role: "Executive Chef"
                 }
               ].map((t, i) => (
-                <motion.div 
-                  key={i} 
-                  {...fadeInView} 
+                <motion.div
+                  key={i}
+                  {...fadeInView}
                   transition={{ delay: i * 0.1 }}
                   className="p-8 bg-cream rounded-3xl border border-forest/5 relative"
                 >
@@ -573,7 +573,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        
+        */}        
         {/* Contact Section */}
         <section id="contact" className="py-24 bg-cream border-t border-forest/5">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">

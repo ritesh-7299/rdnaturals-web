@@ -94,6 +94,7 @@ export default function Header({ onOrderClick }: HeaderProps) {
               Pricing
               <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-terracotta/0 group-hover:bg-terracotta/60 transition-colors"></span>
             </button>
+            {/* 
             <button
               onClick={() => scrollToSection("testimonials")}
               className="text-sm font-medium text-forest/70 hover:text-terracotta transition-colors relative group"
@@ -101,6 +102,7 @@ export default function Header({ onOrderClick }: HeaderProps) {
               Testimonials
               <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-terracotta/0 group-hover:bg-terracotta/60 transition-colors"></span>
             </button>
+            */}
             <button
               onClick={() => scrollToSection("why-us")}
               className="text-sm font-medium text-forest/70 hover:text-terracotta transition-colors relative group"
@@ -181,12 +183,14 @@ export default function Header({ onOrderClick }: HeaderProps) {
                 >
                   Pricing
                 </button>
+                {/* 
                 <button
                   onClick={() => scrollToSection("testimonials")}
                   className="block w-full text-left px-4 py-3 text-lg font-medium text-forest/70 hover:text-forest hover:bg-forest/5 rounded-xl transition-all"
                 >
                   Testimonials
                 </button>
+                */}
                 <button
                   onClick={() => scrollToSection("why-us")}
                   className="block w-full text-left px-4 py-3 text-lg font-medium text-forest/70 hover:text-forest hover:bg-forest/5 rounded-xl transition-all"

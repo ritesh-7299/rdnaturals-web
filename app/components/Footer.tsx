@@ -72,6 +72,7 @@ export default function Footer({ onOrderClick }: FooterProps) {
                   Pricing
                 </a>
               </li>
+              {/* 
               <li>
                 <a
                   href="#testimonials"
@@ -81,7 +82,7 @@ export default function Footer({ onOrderClick }: FooterProps) {
                   Testimonials
                 </a>
               </li>
-              <li>
+              */}              <li>
                 <a
                   href="#why-us"
                   className="text-ivory/70 hover:text-terracotta-light transition-colors inline-flex items-center gap-2 group"
