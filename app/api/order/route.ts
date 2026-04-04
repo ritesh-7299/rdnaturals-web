@@ -3,10 +3,10 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { name, phone, email, location, variety, quantity, frequency, message } = await req.json();
+    const { name, phone, email, location, message } = await req.json();
 
     // Check if required fields are present
-    if (!name || !phone || !location || !variety || !quantity || !frequency) {
+    if (!name || !phone || !location || !message) {
       return NextResponse.json(
         { message: "Missing required fields" },
         { status: 400 }
@@ -27,52 +27,46 @@ export async function POST(req: Request) {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.MY_EMAIL || "rdnaturals.in@gmail.com",
-      subject: `New Mushroom Order/Quote from ${name} (${phone})`,
+      subject: `New Contact/Quotation Request from ${name} (${phone})`,
       text: `
-        New Order/Quotation Request:
+        New Contact/Quotation Request:
         ------------------
         Name: ${name}
         Phone: ${phone}
         Email: ${email || "Not provided"}
         Location: ${location}
-        Variety: ${variety}
-        Quantity: ${quantity}
-        Frequency: ${frequency}
 
         Message/Instructions:
-        ${message || "No additional instructions provided."}
+        ${message}
       `,
       html: `
-        <h2>New Order/Quotation Request</h2>
+        <h2>New Contact/Quotation Request</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Email:</strong> ${email || "Not provided"}</p>
         <p><strong>Location:</strong> ${location}</p>
-        <p><strong>Variety:</strong> ${variety}</p>
-        <p><strong>Quantity:</strong> ${quantity}</p>
-        <p><strong>Frequency:</strong> ${frequency}</p>
         <br/>
         <h3>Message/Instructions:</h3>
-        <p>${(message || "No additional instructions provided.").replace(/\n/g, "<br/>")}</p>
+        <p>${message.replace(/\n/g, "<br/>")}</p>
       `,
     };
 
     // Only send if credentials are provided
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       await transporter.sendMail(mailOptions);
-      return NextResponse.json({ message: "Order sent successfully" }, { status: 200 });
+      return NextResponse.json({ message: "Message sent successfully" }, { status: 200 });
     } else {
-      console.warn("Email credentials missing. Order logged but not sent.");
-      console.log("Order details:", { name, phone, email, location, variety, quantity, frequency, message });
+      console.warn("Email credentials missing. Message logged but not sent.");
+      console.log("Contact details:", { name, phone, email, location, message });
       return NextResponse.json(
-        { message: "Order logged (simulated - email config missing)" },
+        { message: "Message logged (simulated - email config missing)" },
         { status: 200 }
       );
     }
   } catch (error) {
-    console.error("Error sending order email:", error);
+    console.error("Error sending contact email:", error);
     return NextResponse.json(
-      { message: "Error processing order" },
+      { message: "Error processing message" },
       { status: 500 }
     );
   }

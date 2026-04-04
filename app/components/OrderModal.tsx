@@ -25,9 +25,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
     phone: "",
     email: "",
     location: "",
-    variety: "White Button",
-    quantity: "500g",
-    frequency: "One-time",
     message: "",
   });
   
@@ -79,7 +76,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send order");
+        throw new Error("Failed to send message");
       }
 
       setStatus("success");
@@ -88,9 +85,6 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         phone: "",
         email: "", 
         location: "", 
-        variety: "White Button", 
-        quantity: "500g", 
-        frequency: "One-time",
         message: ""
       });
       setErrors({});
@@ -99,7 +93,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
         setStatus("idle");
       }, 2000);
     } catch (error) {
-      console.error("Order error:", error);
+      console.error("Contact error:", error);
       setStatus("error");
       setErrorMessage("Something went wrong. Please try again later.");
     }
@@ -136,7 +130,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
             <div className="p-8 sm:p-10">
               <div className="flex justify-between items-center mb-8">
                 <div>
-                  <h2 className="text-3xl font-display text-forest">Quick Order Form</h2>
+                  <h2 className="text-3xl font-display text-forest">Get in Touch</h2>
                   <p className="text-forest/60 text-sm mt-1">Direct from RD Naturals Farm</p>
                 </div>
                 <button
@@ -160,8 +154,8 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-display text-forest mb-2">Order Received!</h3>
-                  <p className="text-forest/60">We&apos;ll contact you shortly for delivery.</p>
+                  <h3 className="text-2xl font-display text-forest mb-2">Message Received!</h3>
+                  <p className="text-forest/60">We&apos;ll contact you shortly.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -207,7 +201,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Delivery Location</label>
+                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Your Location</label>
                       <input
                         required
                         type="text"
@@ -220,63 +214,14 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Mushroom Variety</label>
-                      <select
-                        value={formData.variety}
-                        onChange={(e) => handleInputChange("variety", e.target.value)}
-                        className="w-full px-5 py-3 rounded-xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest appearance-none"
-                      >
-                        <option>White Button</option>
-                        <option>Oyster</option>
-                        <option>Milky</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Quantity</label>
-                      <select
-                        value={formData.quantity}
-                        onChange={(e) => handleInputChange("quantity", e.target.value)}
-                        className="w-full px-5 py-3 rounded-xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest appearance-none"
-                      >
-                        <option>200g Pack</option>
-                        <option>500g Pack</option>
-                        <option>1kg Pack</option>
-                        <option>2kg Crate</option>
-                        <option>5kg+ Crate</option>
-                      </select>
-                    </div>
-                  </div>
-
                   <div>
-                    <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Order Frequency</label>
-                    <div className="flex gap-2">
-                      {["One-time", "Weekly", "Monthly"].map((freq) => (
-                        <button
-                          key={freq}
-                          type="button"
-                          onClick={() => handleInputChange("frequency", freq)}
-                          className={`flex-1 py-3 rounded-xl text-sm font-bold transition-all ${
-                            formData.frequency === freq
-                              ? "bg-forest text-warm-white"
-                              : "bg-forest/5 text-forest/60 hover:bg-forest/10"
-                          }`}
-                        >
-                          {freq}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Message or Quotation Request (Optional)</label>
+                    <label className="block text-xs font-bold text-forest/50 uppercase tracking-wider mb-2 ml-1">Message or Quotation Request</label>
                     <textarea
-                      rows={3}
+                      required
+                      rows={4}
                       value={formData.message}
                       onChange={(e) => handleInputChange("message", e.target.value)}
-                      placeholder="Ask for a custom quote, bulk pricing, or special instructions..."
+                      placeholder="Ask for a custom quote, bulk pricing, or any other questions..."
                       className="w-full px-5 py-3 rounded-xl bg-forest/5 border border-forest/10 focus:border-forest/30 focus:bg-white outline-none transition-all text-forest resize-none text-sm"
                     />
                   </div>
@@ -294,7 +239,7 @@ export default function OrderModal({ isOpen, onClose }: OrderModalProps) {
                       <div className="w-6 h-6 border-2 border-warm-white/30 border-t-warm-white rounded-full animate-spin" />
                     ) : (
                       <>
-                        Confirm Order
+                        Send Message
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
